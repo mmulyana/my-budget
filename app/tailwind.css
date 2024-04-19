@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: fit-content;
+  height: 100%;
+  transition: right 0.5s ease;
+  animation: slideInRight 0.5s forwards;
+  padding: 20px 12px;
+  display: flex;
+  align-items: center;
+}
+
+@keyframes slideInRight {
+  from {
+    right: -100%;
+  }
+  to {
+    right: 0;
+  }
+}

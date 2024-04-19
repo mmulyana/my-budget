@@ -1,4 +1,4 @@
-import { json, useLoaderData } from '@remix-run/react'
+import { Link, Outlet, json, useLoaderData } from '@remix-run/react'
 import { db } from '~/utils/db.server'
 
 export const loader = async () => {
@@ -10,14 +10,18 @@ export default function TodosRoute() {
   const data = useLoaderData<typeof loader>()
 
   return (
-    <div>
-      <ul>
-        {data.budgets.map((budget) => (
-          <li key={budget.id}>
-            {budget.name} amount: {budget.totalAmount}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <div>
+        <Link to='/home/add'>Add</Link>
+        <ul>
+          {data.budgets.map((budget) => (
+            <li key={budget.id}>
+              {budget.name} amount: {budget.totalAmount}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <Outlet />
+    </>
   )
 }
