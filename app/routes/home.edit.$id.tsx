@@ -1,0 +1,129 @@
+import {
+  ActionFunction,
+  LoaderFunctionArgs,
+  json,
+  redirect,
+} from '@remix-run/node'
+import { useLoaderData, useNavigate } from '@remix-run/react'
+import useOutsideClick from '~/hook/use-outside-click'
+import { db } from '~/utils/db.server'
+
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const budget = await db.budget.findFirst({
+    where: {
+      id: {
+        equals: parseInt(params.id as string, 10),
+      },
+    },
+  })
+  if (!budget) throw new Error('budget not found')
+  return json({ budget })
+}
+
+export const action: ActionFunction = async ({ request, params }) => {
+  const formData = await request.formData()
+  const name = formData.get('name') as string
+  const description = formData.get('description') as string
+  const totalAmount = formData.get('totalAmount') as string
+  const startDate = formData.get('startDate') as string
+  const endDate = formData.get('endDate') as string
+
+  await db.budget.update({
+    data: {
+      name,
+      totalAmount: parseInt(totalAmount),
+      description,
+      startDate,
+      endDate,
+    },
+    where: {
+      id: parseInt(params.id as string),
+    },
+  })
+
+  return redirect('/home')
+}
+
+export default function EditRoute() {
+  const { budget } = useLoaderData<typeof loader>()
+
+  const navigate = useNavigate()
+
+  const modalRef = useOutsideClick({
+    callback: () => navigate('/home'),
+  })
+  return (
+    <div className='fixed top-0 left-0 w-full h-full bg-black/10'>
+      <div ref={modalRef} className='modal'>
+        <div className='w-[500px] h-[calc(100vh-20px)] bg-white rounded-lg'>
+          <form method='post'>
+            <div className='flex flex-col gap-8 p-8'>
+              <div>
+                <label className='block mb-0.5' htmlFor='name'>
+                  Name
+                </label>
+                <input
+                  name='name'
+                  id='name'
+                  className='bg-gray-100 px-1.5 py-1.5 text-sm w-full rounded'
+                  defaultValue={budget.name ?? ''}
+                />
+              </div>
+              <div>
+                <label className='block mb-0.5' htmlFor='description'>
+                  Description
+                </label>
+                <textarea
+                  name='description'
+                  className='bg-gray-100 px-1.5 py-1.5 text-sm w-full rounded'
+                >
+                  {budget.description ?? ''}
+                </textarea>
+              </div>
+              <div>
+                <label className='block mb-0.5' htmlFor='totalAmount'>
+                  Total Amount
+                </label>
+                <input
+                  name='totalAmount'
+                  type='number'
+                  className='bg-gray-100 px-1.5 py-1.5 text-sm w-full rounded'
+                  defaultValue={budget.totalAmount ?? ''}
+                />
+              </div>
+              <div className='grid grid-cols-2 gap-4'>
+                <div>
+                  <label className='block mb-0.5' htmlFor='startDate'>
+                    Start Date
+                  </label>
+                  <input
+                    name='startDate'
+                    id='startDate'
+                    type='date'
+                    className='bg-gray-100 px-1.5 py-1.5 text-sm w-full rounded'
+                    defaultValue={budget.startDate ?? ''}
+                  />
+                </div>
+                <div>
+                  <label className='block mb-0.5' htmlFor='endDate'>
+                    End Date
+                  </label>
+                  <input
+                    id='endDate'
+                    name='endDate'
+                    type='date'
+                    className='bg-gray-100 px-1.5 py-1.5 text-sm w-full rounded'
+                    defaultValue={budget.endDate ?? ''}
+                  />
+                </div>
+              </div>
+              <button className='bg-emerald-500 text-gray-900 py-2 rounded'>
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}
