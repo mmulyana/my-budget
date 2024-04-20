@@ -44,6 +44,7 @@ export default function AddFormRoute() {
                   name='name'
                   id='name'
                   className='bg-gray-100 px-1.5 py-1.5 text-sm w-full rounded'
+                  required
                 />
               </div>
               <div>
@@ -63,6 +64,8 @@ export default function AddFormRoute() {
                   name='totalAmount'
                   type='number'
                   className='bg-gray-100 px-1.5 py-1.5 text-sm w-full rounded'
+                  max={99999999}
+                  required
                 />
               </div>
               <div className='grid grid-cols-2 gap-4'>

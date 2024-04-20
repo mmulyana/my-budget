@@ -67,6 +67,7 @@ export default function EditRoute() {
                   id='name'
                   className='bg-gray-100 px-1.5 py-1.5 text-sm w-full rounded'
                   defaultValue={budget.name ?? ''}
+                  required
                 />
               </div>
               <div>
@@ -89,6 +90,8 @@ export default function EditRoute() {
                   type='number'
                   className='bg-gray-100 px-1.5 py-1.5 text-sm w-full rounded'
                   defaultValue={budget.totalAmount ?? ''}
+                  max={99999999}
+                  required
                 />
               </div>
               <div className='grid grid-cols-2 gap-4'>
