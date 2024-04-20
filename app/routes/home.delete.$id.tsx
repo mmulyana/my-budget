@@ -21,7 +21,7 @@ export default function EditRoute() {
     callback: () => navigate('/home'),
   })
   return (
-    <div className='fixed top-0 left-0 w-full h-full bg-black/10'>
+    <div className='fixed top-0 left-0 w-full h-full bg-black/20 px-4'>
       <div
         ref={modalRef}
         className='absolute top-1/2 left-1/2 max-w-full w-[420px] bg-white -translate-x-1/2 -translate-y-1/2 px-5 py-6 rounded-xl'

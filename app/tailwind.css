@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.modal {
+.drawer {
   position: fixed;
   top: 0;
   right: -100%;
@@ -10,7 +10,6 @@
   height: 100%;
   transition: right 0.5s ease;
   animation: slideInRight 0.5s forwards;
-  padding: 20px 12px;
   display: flex;
   align-items: center;
 }
