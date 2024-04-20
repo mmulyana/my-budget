@@ -6,7 +6,7 @@ import { db } from '~/utils/db.server'
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData()
   const name = formData.get('name') as string
-  const description = formData.get('name') as string
+  const description = formData.get('description') as string
   const totalAmount = formData.get('totalAmount') as string
   const startDate = formData.get('startDate') as string
   const endDate = formData.get('endDate') as string
@@ -34,7 +34,7 @@ export default function AddFormRoute() {
     <div className='fixed top-0 left-0 w-full h-full bg-black/10'>
       <div ref={modalRef} className='modal'>
         <div className='w-[500px] h-[calc(100vh-20px)] bg-white rounded-lg'>
-          <form action='/home/add' method='post'>
+          <form method='post'>
             <div className='flex flex-col gap-8 p-8'>
               <div>
                 <label className='block mb-0.5' htmlFor='name'>
