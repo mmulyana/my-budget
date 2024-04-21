@@ -1,10 +1,9 @@
 import { ActionFunction, redirect } from '@remix-run/node'
-import { useNavigate } from '@remix-run/react'
+import { useNavigate, Form } from '@remix-run/react'
 import useOutsideClick from '~/hook/use-outside-click'
 import { db } from '~/utils/db.server'
 
 export const action: ActionFunction = async ({ params }) => {
-  console.log(params)
   await db.budget.delete({
     where: {
       id: parseInt(params.id as string),
@@ -28,7 +27,7 @@ export default function EditRoute() {
       >
         <div className='h-full w-full bg-white px-4 py-6 rounded-xl'>
           <p className='text-center text-lg mb-4'>Are you sure delete this?</p>
-          <form
+          <Form
             method='post'
             className='w-full grid md:grid-cols-2 gap-4 rounded'
           >
@@ -45,7 +44,7 @@ export default function EditRoute() {
             >
               Delete
             </button>
-          </form>
+          </Form>
         </div>
       </div>
     </div>
