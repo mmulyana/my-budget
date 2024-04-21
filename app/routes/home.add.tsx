@@ -92,7 +92,7 @@ export default function AddFormRoute() {
                   />
                 </div>
               </div>
-              <button className='bg-emerald-500 text-gray-900 py-2 rounded'>
+              <button className='bg-teal-800 text-gray-900 py-2 rounded'>
                 Save
               </button>
             </div>
