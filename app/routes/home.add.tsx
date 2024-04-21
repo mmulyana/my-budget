@@ -1,5 +1,5 @@
 import { ActionFunctionArgs, redirect } from '@remix-run/node'
-import { useNavigate } from '@remix-run/react'
+import { Form, useNavigate } from '@remix-run/react'
 import useOutsideClick from '~/hook/use-outside-click'
 import { db } from '~/utils/db.server'
 
@@ -34,7 +34,7 @@ export default function AddFormRoute() {
     <div className='fixed top-0 left-0 w-full h-full bg-black/20'>
       <div ref={modalRef} className='drawer'>
         <div className='ml-auto w-full mr-2 lgw-[500px] h-[calc(100vh-80px)] lg:h-[calc(100vh-20px)] bg-white rounded-lg'>
-          <form method='post'>
+          <Form method='post'>
             <div className='flex flex-col gap-8 p-8'>
               <div>
                 <label className='block mb-0.5' htmlFor='name'>
@@ -96,7 +96,7 @@ export default function AddFormRoute() {
                 Save
               </button>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>
